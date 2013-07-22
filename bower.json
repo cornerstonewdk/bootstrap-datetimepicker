@@ -1,0 +1,10 @@
+{
+	"name": "bootstrap-datetimepicker",
+	"version": "0.0.11",
+	"main": ["build/css/bootstrap-datetimepicker.min.css", "build/js/bootstrap-datetimepicker.min.js"],
+	"dependencies": {
+		"jquery": ">=1.10.2",
+		"bootstrap": ">=2.2.2 <3.0",
+		"bootstrap-glyphicons": "https://github.com/twbs/bootstrap-glyphicons.git"
+	}
+}
