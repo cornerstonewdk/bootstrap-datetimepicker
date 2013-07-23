@@ -1,5 +1,4 @@
 describe 'datetimepicker', ->
-
   beforeEach setupDateTimePicker()
 
   afterEach teardownDateTimePicker()
@@ -199,7 +198,6 @@ describe 'datetimepicker', ->
 
 
 describe 'datetimepicker with 12-hour clock format', ->
-
   beforeEach setupDateTimePicker({
     format: 'MM/dd/yyyy HH:mm PP'
     value: '05/01/1905 09:52 PM'
@@ -271,7 +269,6 @@ describe 'datetimepicker with 12-hour clock format', ->
 
 
 describe 'datetimepicker api', ->
-
   beforeEach setupDateTimePicker()
 
   afterEach teardownDateTimePicker()
@@ -328,7 +325,6 @@ describe 'datetimepicker api', ->
 
 
 describe 'datetimepicker with pickSeconds = false', ->
-
   beforeEach setupDateTimePicker({
     value: '09/14/1982 01:02:03 037'
     pickSeconds: false
@@ -339,5 +335,5 @@ describe 'datetimepicker with pickSeconds = false', ->
   it 'hides seconds selector from time widget', ->
     expect(@timeWidget.find('[data-action=incrementSeconds]').length).to.equal 0
     expect(@timeWidget.find('[data-action=decrementSeconds]').length).to.equal 0
-    expect(@timeWidget.find('.timepicker-second').length) .to.equal 0
+    expect(@timeWidget.find('.timepicker-second').length).to.equal 0
 
