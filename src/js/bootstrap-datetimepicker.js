@@ -28,7 +28,9 @@
 
 	var i, j, btsSelectors = {
 		wrapper: ".input-group", // .input-prepend, .input-apped -> .inpup-group
-		addOn: ".input-group-addon" // .add-on -> .input-group-addon
+		addOn: ".input-group-addon", // .add-on -> .input-group-addon
+		iconCalendar: "glyphicon glyphicon-calendar",
+		iconTime: "glyphicon glyphicon-time"
 	};
 
 	var DateTimePicker = function (element, options) {
@@ -68,12 +70,12 @@
 			}
 			if (this.pickTime) {
 				if (icon && icon.length) this.timeIcon = icon.data('time-icon');
-				if (!this.timeIcon) this.timeIcon = 'icon-time';
+				if (!this.timeIcon) this.timeIcon = btsSelectors.iconTime;
 				icon.addClass(this.timeIcon);
 			}
 			if (this.pickDate || this.pickDateAsTimeStyle) {
 				if (icon && icon.length) this.dateIcon = icon.data('date-icon');
-				if (!this.dateIcon) this.dateIcon = 'icon-calendar';
+				if (!this.dateIcon) this.dateIcon = btsSelectors.iconCalendar;
 				icon.removeClass(this.timeIcon);
 				icon.addClass(this.dateIcon);
 			}
@@ -565,6 +567,7 @@
 								case 'switch':
 									this.showMode(1);
 									break;
+								case 'prev':
 								case 'next':
 									var vd = this.viewDate;
 									var navFnc = DPGlobal.modes[this.viewMode].navFnc;
