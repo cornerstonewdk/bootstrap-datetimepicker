@@ -12,7 +12,9 @@
 
     <div class="row">
         <div class="col col-lg-6">
-            <div class="input-group date datetimepicker">
+            <h2>Default #1</h2>
+
+            <div class="input-group date" data-plugin="datetimepicker">
                 <input data-format="dd/MM/yyyy hh:mm:ss" type="text"/>
                 <span class="input-group-addon">
                     <i data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"></i>
@@ -20,7 +22,53 @@
             </div>
         </div>
         <div class="col col-lg-6">
-            <div class="input-group date datetimepicker">
+            <h2>Default #2</h2>
+
+            <div class="input-group date" data-plugin="datetimepicker">
+                <span class="input-group-addon">
+                    <i data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"></i>
+                </span>
+                <input data-format="dd/MM/yyyy hh:mm:ss" type="text"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-6">
+            <h2>Only Date</h2>
+
+            <div class="input-group date" data-plugin="datetimepicker">
+                <input data-format="dd/MM/yyyy hh:mm:ss" type="text"/>
+                <span class="input-group-addon">
+                    <i data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"></i>
+                </span>
+            </div>
+        </div>
+        <div class="col col-lg-6">
+            <h2>Only Time</h2>
+
+            <div class="input-group date" data-plugin="datetimepicker">
+                <input data-format="dd/MM/yyyy hh:mm:ss" type="text"/>
+                <span class="input-group-addon">
+                    <i data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-6">
+            <h2>Date #1</h2>
+
+            <div class="input-group date" data-plugin="datetimepicker">
+                <span class="input-group-addon">
+                    <i data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"></i>
+                </span>
+                <input data-format="dd/MM/yyyy hh:mm:ss" type="text"/>
+            </div>
+        </div>
+        <div class="col col-lg-6">
+            <h2>Date #2</h2>
+
+            <div class="input-group date" data-plugin="datetimepicker">
                 <input data-format="dd/MM/yyyy hh:mm:ss" type="text"/>
                 <span class="input-group-addon">
                     <i data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"></i>
@@ -33,7 +81,30 @@
 <script src="../bootstrap/dist/js/bootstrap.js"></script>
 <script src="../src/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript">
-    $('.datetimepicker').datetimepicker();
+    $('[data-plugin=datetimepicker]').each(function (i) {
+        if (i == 2) {
+            $(this).datetimepicker({
+                pickTime: false,
+                format: "yyyy/MM/dd"
+            });
+        } else if (i == 3) {
+            $(this).datetimepicker({
+                pickDate: false,
+                format: "HH:MM:ss PP"
+            });
+        } else if (i == 4) {
+            $(this).datetimepicker({
+                pickDateAsTimeStyle: true
+            });
+        } else if (i == 5) {
+            $(this).datetimepicker({
+                pickDateAsTimeStyle: true,
+                format: "yyyy/MM/dd"
+            });
+        } else {
+            $(this).datetimepicker();
+        }
+    });
 </script>
 </body>
 </html>
