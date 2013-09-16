@@ -247,6 +247,12 @@
 .bootstrap-datetimepicker-widget thead tr:first-child th:hover {
   background: #eeeeee;
 }
+.bootstrap-datetimepicker-widget .js-control {
+  text-align: right;
+}
+.bootstrap-datetimepicker-widget .js-control .js-cancel {
+  margin-left: 5px;
+}
 .input-append.date .add-on i,
 .input-prepend.date .add-on i {
   display: block;

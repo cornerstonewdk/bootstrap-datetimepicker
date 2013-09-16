@@ -82,7 +82,7 @@
 				icon.removeClass(this.timeIcon);
 				icon.addClass(this.dateIcon);
 			}
-			this.widget = $(getTemplate(this.timeIcon, options.pickDate, options.pickDateAsTimeStyle, options.pickTime, options.pick12HourFormat, options.pickSeconds, options.collapse)).appendTo('body');
+			this.widget = $(getTemplate(this.timeIcon, options.pickDate, options.pickDateAsTimeStyle, options.pickTime, options.pick12HourFormat, options.pickSeconds, options.collapse, options)).appendTo('body');
 			this.minViewMode = options.minViewMode || this.$element.data('date-minviewmode') || 0;
 			if (typeof this.minViewMode === 'string') {
 				switch (this.minViewMode) {
@@ -1007,6 +1007,15 @@
 			// this handles time picker clicks
 			this.widget.on('click', '[data-action]', $.proxy(this.doAction, this));
 			this.widget.on('mousedown', $.proxy(this.stopEvent, this));
+
+			//
+			this.widget.on('click', '.js-confirm', function() {
+				self.hide();
+			});
+			this.widget.on('click', '.js-cancel', function() {
+				self.hide();
+				self.$element.find('input').val('');
+			});
 			if (this.pickDate && this.pickTime) {
 				this.widget.on('click.togglePicker', '.accordion-toggle', function (e) {
 					e.stopPropagation();
@@ -1147,7 +1156,11 @@
 		endDate: Infinity,
 		collapse: true,
 		language: "kr",
-		format: "yyyy-MM-dd HH:mm:ss PP"
+		format: "yyyy-MM-dd HH:mm:ss PP",
+		controlText: {
+			ok: "확인",
+			cancel: "취소"
+		}
 	};
 	$.fn.datetimepicker.Constructor = DateTimePicker;
 	var dpgId = 0;
@@ -1224,7 +1237,7 @@
 		else return Array(l - s.length + 1).join(c || ' ') + s;
 	}
 
-	function getTemplate(timeIcon, pickDate, pickDateAsTimeStyle, pickTime, is12Hours, showSeconds, collapse) {
+	function getTemplate(timeIcon, pickDate, pickDateAsTimeStyle, pickTime, is12Hours, showSeconds, collapse, options) {
 		if (pickDate && pickTime) {
 			return (
 				'<div class="bootstrap-datetimepicker-widget dropdown-menu">' +
@@ -1233,11 +1246,14 @@
 					'<div class="datepicker">' +
 					DPGlobal.template +
 					'</div>' +
+					'<div class="js-control">' +
+					controlTemplate(options) +
+					'</div>' +
 					'</li>' +
 					'<li class="picker-switch accordion-toggle"><a><i class="' + timeIcon + '"></i></a></li>' +
 					'<li' + (collapse ? ' class="collapse"' : '') + '>' +
 					'<div class="timepicker">' +
-					TPGlobal.getTemplate(is12Hours, showSeconds) +
+					TPGlobal.getTemplate(is12Hours, showSeconds, options) +
 					'</div>' +
 					'</li>' +
 					'</ul>' +
@@ -1247,7 +1263,7 @@
 			return (
 				'<div class="bootstrap-datetimepicker-widget dropdown-menu">' +
 					'<div class="timepicker">' +
-					TPGlobal.getTemplate(is12Hours, showSeconds) +
+					TPGlobal.getTemplate(is12Hours, showSeconds, options) +
 					'</div>' +
 					'</div>'
 				);
@@ -1255,7 +1271,7 @@
 			return (
 				'<div class="bootstrap-datetimepicker-widget dropdown-menu">' +
 					'<div class="timepicker">' +
-					DSPGlobal.getTemplate(is12Hours, showSeconds) +
+					DSPGlobal.getTemplate(is12Hours, showSeconds, options) +
 					'</div>' +
 					'</div>'
 				);
@@ -1265,6 +1281,9 @@
 					'<div class="datepicker">' +
 					DPGlobal.template +
 					'</div>' +
+					'<div class="js-control">' +
+					controlTemplate(options) +
+					'</div>' +
 					'</div>'
 				);
 		}
@@ -1273,6 +1292,11 @@
 	function UTCDate() {
 		return new Date(Date.UTC.apply(Date, arguments));
 	}
+
+	var controlTemplate = function(options) {
+		return '<button class="btn btn-primary js-confirm">' + options.controlText.ok +
+			'</button><button class="btn js-cancel">' + options.controlText.cancel + '</button>';
+	};
 
 	var DPGlobal = {
 		modes: [
@@ -1331,7 +1355,7 @@
 		minuteTemplate: '<span data-action="showMinutes" data-time-component="minutes" class="timepicker-minute"></span>',
 		secondTemplate: '<span data-action="showSeconds" data-time-component="seconds" class="timepicker-second"></span>'
 	};
-	TPGlobal.getTemplate = function (is12Hours, showSeconds) {
+	TPGlobal.getTemplate = function (is12Hours, showSeconds, options) {
 		return (
 			'<div class="timepicker-picker">' +
 				'<table class="table-condensed"' +
@@ -1368,6 +1392,9 @@
 						'<td><a href="#" class="btn" data-action="decrementSeconds"><i class="icon-chevron-down"></i></a></td>' : '') +
 				(is12Hours ? '<td class="separator"></td>' : '') +
 				'</tr>' +
+				'<tr><td colspan="5" class="js-control">' +
+				controlTemplate(options) +
+				'</td></tr>' +
 				'</table>' +
 				'</div>' +
 				'<div class="timepicker-hours" data-action="selectHour">' +
@@ -1392,7 +1419,7 @@
 		secondTemplate: '<span data-action="showDays" data-time-component="days" class="timepicker-second"></span>'
 	};
 
-	DSPGlobal.getTemplate = function (is12Hours, showSeconds) {
+	DSPGlobal.getTemplate = function (is12Hours, showSeconds, options) {
 		return (
 			'<div class="timepicker-picker">' +
 				'<table class="table-condensed">' +
@@ -1427,6 +1454,9 @@
 						'<td><a href="#" class="btn" data-action="decrementDays"><i class="icon-chevron-down"></i></a></td>' : '') +
 				(is12Hours ? '<td class="separator"></td>' : '') +
 				'</tr>' +
+				'<tr><td colspan="5" class="js-control">' +
+				controlTemplate(options) +
+				'</td></tr>' +
 				'</table>' +
 				'</div>' +
 				'<div class="timepicker-hours" data-action="selectYear">' +

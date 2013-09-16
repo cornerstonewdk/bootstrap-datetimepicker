@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen" href="../build/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="../build/css/bootstrap-datetimepicker.css">
 </head>
 <body>
 <div class="container">
@@ -74,7 +74,8 @@
                 pickTime: false
             });
             $('#datetimepicker3').datetimepicker({
-                pickDate: false
+                pickDate: false,
+                format: "HH:mm:ss PP"
             });
             $('#datetimepicker4').datetimepicker({
                 pickDateAsTimeStyle: true
